@@ -21,14 +21,34 @@ export function Contact() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
   const [form, setForm]     = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState<Status>('idle')
+  const [error, setError]   = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return
     setStatus('sending')
-    await new Promise(r => setTimeout(r, 1400))
-    setStatus('done')
-    setForm({ name: '', email: '', subject: '', message: '' })
+    setError(null)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data?.error || 'Failed to send the message.')
+      }
+
+      setStatus('done')
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Something went wrong.'
+      console.error('Contact submit error:', err)
+      setStatus('error')
+      setError(message)
+    }
   }
 
   const inputClass = [
@@ -196,6 +216,15 @@ export function Contact() {
                   style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--green)', letterSpacing: '.06em' }}
                 >
                   ✓ Message received. I&apos;ll get back to you shortly!
+                </motion.p>
+              )}
+
+              {status === 'error' && error && (
+                <motion.p
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                  style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--red)', letterSpacing: '.06em' }}
+                >
+                  {error}
                 </motion.p>
               )}
             </form>

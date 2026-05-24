@@ -8,14 +8,6 @@ import {
   IconCode, IconNetwork, IconBuildingSkyscraper,
 } from '@tabler/icons-react'
 
-const MANIFESTO = [
-  "I refuse to be one thing.",
-  "Code is architecture. Architecture is design. Design is logic.",
-  "Every domain I master makes every other one sharper.",
-  "The world has enough specialists. I'm building something rarer.",
-  "From Kathmandu — reaching everywhere.",
-]
-
 const WORLDS = [
   {
     id: 'code',
@@ -52,28 +44,8 @@ const WORLDS = [
   },
 ]
 
-const COLLISIONS = [
-  {
-    a: { label: 'Network Topology', color: '#4f7fff' },
-    b: { label: 'Floor Plan Layout', color: '#00e599' },
-    insight: 'Both are spatial thinking — routing traffic through a building vs. routing data through infrastructure.',
-  },
-  {
-    a: { label: 'UI/UX Design', color: '#00d4ff' },
-    b: { label: 'Interior Design', color: '#00e599' },
-    insight: 'Designing a room and designing a screen are the same problem: guide the person, hide the complexity.',
-  },
-  {
-    a: { label: 'Code Architecture', color: '#00d4ff' },
-    b: { label: 'Space Planning', color: '#00e599' },
-    insight: 'Clean code and clean floor plans share the same principle — every element earns its place.',
-  },
-]
-
 export function About() {
   const { ref: sectionRef, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
-  const { ref: manifestoRef, inView: manifestoInView } = useInView({ triggerOnce: true, threshold: 0.2 })
-  const { ref: collideRef, inView: collideInView } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
     <section id="about" className="max-w-7xl mx-auto px-6 md:px-10" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
@@ -162,134 +134,22 @@ export function About() {
           })}
         </motion.div>
 
-        {/* ── MANIFESTO ── */}
-        <div ref={manifestoRef} style={{ marginBottom: '100px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={manifestoInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}>
-            <div className="section-eyebrow">Manifesto</div>
-          </motion.div>
-
-          <div style={{
-            padding: '60px 48px',
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: '24px',
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            {/* Big quote mark */}
-            <div style={{
-              position: 'absolute', top: '-20px', left: '40px',
-              fontFamily: 'var(--font-bebas)', fontSize: '200px',
-              color: 'rgba(0,212,255,0.04)', lineHeight: 1,
-              pointerEvents: 'none', userSelect: 'none',
-            }}>"</div>
-
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              {MANIFESTO.map((line, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={manifestoInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.1 + i * 0.12, duration: 0.6 }}
-                  style={{
-                    fontFamily: i === 0 ? 'var(--font-bebas)' : 'inherit',
-                    fontSize: i === 0 ? 'clamp(32px, 5vw, 54px)' : '17px',
-                    color: i === 0 ? '#fff' : 'var(--txt2)',
-                    letterSpacing: i === 0 ? '.04em' : 'normal',
-                    lineHeight: i === 0 ? 1.1 : 1.8,
-                    marginBottom: i === 0 ? '28px' : '8px',
-                  }}>
-                  {i > 0 && (
-                    <span style={{ color: 'var(--cyan)', marginRight: '10px', opacity: 0.6 }}>—</span>
-                  )}
-                  {line}
-                </motion.p>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── WORLDS COLLIDE ── */}
-        <div ref={collideRef} style={{ marginBottom: '100px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={collideInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}>
-            <div className="section-eyebrow">Intersections</div>
-            <h3 style={{
-              fontFamily: 'var(--font-bebas)', fontSize: 'clamp(28px, 4vw, 48px)',
-              color: '#fff', letterSpacing: '.04em', marginBottom: '40px',
-            }}>
-              WHERE THE WORLDS <span style={{ color: 'var(--cyan)' }}>COLLIDE.</span>
-            </h3>
-          </motion.div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {COLLISIONS.map((c, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                animate={collideInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1 + i * 0.12, duration: 0.55 }}
-                style={{
-                  display: 'grid', gridTemplateColumns: '1fr auto 1fr auto',
-                  gap: '16px', alignItems: 'center',
-                  padding: '24px 28px', borderRadius: '16px',
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                }}>
-                {/* Domain A */}
-                <div style={{
-                  padding: '8px 16px', borderRadius: '10px',
-                  background: `${c.a.color}12`,
-                  border: `1px solid ${c.a.color}30`,
-                  fontFamily: 'var(--font-mono)', fontSize: '12px',
-                  color: c.a.color, letterSpacing: '.06em',
-                  textAlign: 'center',
-                }}>
-                  {c.a.label}
-                </div>
-
-                {/* Plus */}
-                <div style={{
-                  fontFamily: 'var(--font-bebas)', fontSize: '24px',
-                  color: 'var(--txt3)', letterSpacing: '.02em',
-                }}>×</div>
-
-                {/* Domain B */}
-                <div style={{
-                  padding: '8px 16px', borderRadius: '10px',
-                  background: `${c.b.color}12`,
-                  border: `1px solid ${c.b.color}30`,
-                  fontFamily: 'var(--font-mono)', fontSize: '12px',
-                  color: c.b.color, letterSpacing: '.06em',
-                  textAlign: 'center',
-                }}>
-                  {c.b.label}
-                </div>
-
-                {/* Insight */}
-                <div style={{
-                  paddingLeft: '20px',
-                  borderLeft: '1px solid rgba(255,255,255,0.08)',
-                  fontSize: '13px', color: 'var(--txt2)',
-                  lineHeight: 1.6, maxWidth: '340px',
-                }}>
-                  {c.insight}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
         {/* ── SKILL GROUPS ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.3 }}
+          className="mb-12">
+          <div className="section-eyebrow">Skill Acquisition</div>
+          <h3 className="section-title">
+            Skills I’ve acquired across web, networking, and interior design.
+          </h3>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.35 }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
           {SKILL_GROUPS.map((g, i) => (
             <div key={i} className="card">

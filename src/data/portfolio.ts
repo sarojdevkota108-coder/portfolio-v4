@@ -1,8 +1,8 @@
 // ─── NAVIGATION ──────────────────────────────────────────────────────────────
 export const NAV_LINKS = [
   { label: 'About',            href: '#about' },
-  { label: 'Web Development',  href: '#webdev' },
   { label: 'Interior Design',  href: '#design' },
+  { label: 'Web Development',  href: '#webdev' },
   { label: 'Networking',       href: '#networking' },
   { label: 'Achievements',     href: '#achievements' },
   { label: 'Certifications',   href: '#certifications' },

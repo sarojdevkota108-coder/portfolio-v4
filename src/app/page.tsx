@@ -17,8 +17,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      <WebDev />
       <InteriorDesign />
+      <WebDev />
       <Networking />
       <Achievements />
       <Skills />
